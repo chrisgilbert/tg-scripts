@@ -22,20 +22,20 @@ function Set-PreferIPv4 () {
         }
         catch {
             if ($($PSItem.ToString()) -eq "Requested registry access is not allowed.") {
-                Write-Output "Error:" $($PSItem.ToString()) "Powershell must be ran as administrator to run this script." -ForegroundColor Red
+                Write-Output "Error: $($PSItem.ToString()) Powershell must be ran as administrator to run this script."
               } 
               else {
-                Write-Output "Error:" $($PSItem.ToString()) -ForegroundColor Red
+                Write-Output "Error: $($PSItem.ToString())"
               }
         }
       }
     }
     catch {
       if ($($PSItem.ToString()) -eq "Requested registry access is not allowed.") {
-        Write-Output "Error:" $($PSItem.ToString()) "Powershell must be ran as administrator to run this script." -ForegroundColor Red  
+        Write-Output "Error: $($PSItem.ToString()) Powershell must be ran as administrator to run this script."  
       } 
       else {
-        Write-Output "Error:" $($PSItem.ToString()) -ForegroundColor Red
+        Write-Output "Error: $($PSItem.ToString())"
       }
     }
 }
