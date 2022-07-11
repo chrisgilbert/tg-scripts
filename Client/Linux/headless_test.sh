@@ -1,4 +1,6 @@
 #!/bin/bash
+
+#configured and ran against Linux Client version 1.0.37 against Debian Bullseye
 red=$'\e[1;31m'
 grn=$'\e[1;32m'
 yel=$'\e[1;33m'
