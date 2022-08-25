@@ -39,4 +39,4 @@ function Set-PreferIPv6 () {
       }
     }
 }
-Set-PreferIPv4
+Set-PreferIPv6
