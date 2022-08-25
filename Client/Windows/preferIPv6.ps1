@@ -4,20 +4,20 @@
 #Can be ran as a one-liner with the below command in powershell ran as administrator:
 #$preferIPv4 = Invoke-WebRequest https://raw.githubusercontent.com/Twingate-Labs/tg-scripts/main/Client/Windows/preferIPv4.ps1; Invoke-Expression $($preferIPv4.Content)
 
-function Set-PreferIPv4 () {
+function Set-PreferIPv6 () {
     try {
-      if ((Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' | Select-Object -ExpandProperty 'DisabledComponents' -ErrorAction SilentlyContinue) -eq 32) {
-          Write-Host "IPv4 is already preferred over IPv6. No further actions necessary." -ForegroundColor Green
+      if ((Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' | Select-Object -ExpandProperty 'DisabledComponents' -ErrorAction SilentlyContinue) -eq 0) {
+          Write-Host "IPv6 is already preferred over IPv4. No further actions necessary." -ForegroundColor Green
       }
       elseif (Get-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters' | Select-Object -ExpandProperty 'DisabledComponents' -ErrorAction SilentlyContinue) {
-        Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\" -Name "DisabledComponents" -Value 0x20 -ErrorAction Stop
-        Write-Host "Setting IPv4 preference over IPv6."  -ForegroundColor Green
+        Set-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\" -Name "DisabledComponents" -Value 0x00 -ErrorAction Stop
+        Write-Host "Setting IPv6 preference over IPv4."  -ForegroundColor Green
         Write-Host "Reboot required for changes to take effect." -ForegroundColor Red
       }
       else {
         try {
-          New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\" -Name "DisabledComponents" -Value 0x20 -PropertyType "DWord" -ErrorAction Stop
-          Write-Host "Setting IPv4 preference over IPv6." -ForegroundColor Green
+          New-ItemProperty "HKLM:\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters\" -Name "DisabledComponents" -Value 0x00 -PropertyType "DWord" -ErrorAction Stop
+          Write-Host "Setting IPv6 preference over IPv4." -ForegroundColor Green
           Write-Host "Reboot required for changes to take effect." -ForegroundColor Red
         }
         catch {
